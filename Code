@@ -20,6 +20,7 @@ public class LastLab {
                 sApproximate[i] = (alpha * deltaT * deltaT) - sApproximate[i - 2] + (2 * sApproximate[i - 1]);
             }
         }
+        System.out.println("Exact solution - approximate solution:");
         for (int i = 0; i < N; i++) {
             error[i] = Math.abs(sExact(i) - sApproximate[i]);
             sumError = sumError + error[i];
