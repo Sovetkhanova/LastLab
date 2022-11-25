@@ -1,0 +1,30 @@
+public class LastLab {
+    static final float g = 9.8f;
+    static final int pW = 1000, pS = 850, N = 400, tMax = 20;
+    static final float deltaT = tMax * 1.0f / N;
+    static final float alpha = (g * (pW - pS)) / pS;
+    static float[] sApproximate = new float[N];
+    static float[] error = new float[N];
+    public static float tJ (int j){
+        return j * deltaT;
+    }
+    public static float sExact(int j){
+        return 0.86f * tJ(j) * tJ(j);
+    }
+    public static void main(String[] args){
+        float sumError = 0.0f;
+        sApproximate[0] = 0;
+        sApproximate[1] = 0;
+        for (int i = 0; i < N; i++) {
+            if(i != 0 && i != 1){
+                sApproximate[i] = (alpha * deltaT * deltaT) - sApproximate[i - 2] + (2 * sApproximate[i - 1]);
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            error[i] = Math.abs(sExact(i) - sApproximate[i]);
+            sumError = sumError + error[i];
+            System.out.print(error[i] + "   ");
+        }
+        System.out.println("\n\nМат.погрешность:   " + sumError / N);
+    }
+}
